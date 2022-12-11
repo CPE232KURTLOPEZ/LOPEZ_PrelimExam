@@ -1,0 +1,35 @@
+---
+- hosts: all
+  become: true
+  vars:
+    # Motd
+    - motd_var: "Ansible Managed node by kurtlopez"
+
+  tasks:
+
+  - name: Installing the latest python3, pip3 and Java open-jdk
+    package:
+      name:
+        - "{{ python }}"
+        - "{{ pip3 }}"
+        - "{{ javaopenjdk }}"
+      state: latest
+
+  - name: Python3 as default python
+    ansible.builtin.command: alias python3=usr/bin/python3
+    when: ansible_distribution == "CentOS"
+
+  - name: MOTD banner
+    ansible.builtin.command: echo "{{motd_var}}" >> /etc/motd
+
+  - name: Creating user for Ubuntu
+    ansible.builtin.user:
+      name: kurtlopez
+      state: present
+    when: ansible_distribution == "Ubuntu"
+
+  - name: Creating user for CentOS
+    ansible.builtin.user:
+      name: kurtlopez
+      state: present
+    when: ansible_distribution == "CentOS"

@@ -1,0 +1,4 @@
+[remoteservers]
+192.168.56.109 pip3=python3-pip python=python3 javaopenjdk=openjdk-8-jdk
+192.168.56.112 pip3=python3-pip python=python3 javaopenjdk=openjdk-1.8.0-openjdk
+
